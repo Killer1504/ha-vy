@@ -35,7 +35,9 @@
 }
 
 /* === RESET & BASE === */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -92,8 +94,15 @@ img {
 }
 
 @keyframes loadingSpin {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.2) rotate(180deg); }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.2) rotate(180deg);
+  }
 }
 
 .loading-text {
@@ -105,8 +114,15 @@ img {
 }
 
 @keyframes loadingPulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* === PETAL PARTICLES === */
@@ -135,8 +151,15 @@ img {
     transform: translateX(0) translateY(0) rotate(0deg) scale(1);
     opacity: 0;
   }
-  10% { opacity: 0.7; }
-  90% { opacity: 0.5; }
+
+  10% {
+    opacity: 0.7;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
   100% {
     transform: translateX(var(--drift, 100px)) translateY(110vh) rotate(var(--spin, 720deg)) scale(0.6);
     opacity: 0;
@@ -197,9 +220,19 @@ img {
 }
 
 @keyframes circleFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -20px) scale(1.05); }
-  66% { transform: translate(-20px, 15px) scale(0.95); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-20px, 15px) scale(0.95);
+  }
 }
 
 .hero-content {
@@ -312,13 +345,27 @@ img {
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(8px);
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
 
 /* === WAVE DIVIDERS === */
@@ -335,10 +382,21 @@ img {
   display: block;
 }
 
-.wave-1 svg path { fill: #FFF3F5; }
-.wave-2 svg path { fill: var(--cream); }
-.wave-3 svg path { fill: #FFE8ED; }
-.wave-4 svg path { fill: #FFF0E8; }
+.wave-1 svg path {
+  fill: #FFF3F5;
+}
+
+.wave-2 svg path {
+  fill: var(--cream);
+}
+
+.wave-3 svg path {
+  fill: #FFE8ED;
+}
+
+.wave-4 svg path {
+  fill: #FFF0E8;
+}
 
 /* === SECTION SHARED === */
 .section-title {
@@ -369,32 +427,76 @@ img {
   padding: var(--section-pad) 0;
 }
 
-.tribute-icon {
-  text-align: center;
-  font-size: 3rem;
-  margin-bottom: 24px;
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  margin-left: auto;
-  margin-right: auto;
+.tribute-portrait {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+  position: relative;
 }
 
-.tribute-icon-ring {
+.portrait-frame {
+  position: relative;
+  width: clamp(140px, 25vw, 200px);
+  height: clamp(140px, 25vw, 200px);
+  border-radius: 50%;
+  overflow: visible;
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--white);
+  box-shadow: 0 8px 32px rgba(107, 32, 64, 0.15);
+  position: relative;
+  z-index: 2;
+}
+
+.portrait-ring {
   position: absolute;
-  inset: 0;
-  border: 2px solid var(--rose-light);
+  inset: -8px;
+  border: 2px solid var(--rose);
   border-radius: 50%;
   animation: ringPulse 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+.portrait-ring-outer {
+  inset: -16px;
+  border-color: var(--rose-light);
+  animation-delay: 0.5s;
 }
 
 @keyframes ringPulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.15); opacity: 0; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 0;
+  }
+}
+
+.portrait-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 44px;
+  height: 44px;
+  background: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 12px rgba(107, 32, 64, 0.12);
+  z-index: 3;
 }
 
 .tribute .container {
@@ -566,8 +668,15 @@ img {
     transform: translateY(0) translateX(0) scale(0.5) rotate(0deg);
     opacity: 0;
   }
-  10% { opacity: 0.7; }
-  80% { opacity: 0.4; }
+
+  10% {
+    opacity: 0.7;
+  }
+
+  80% {
+    opacity: 0.4;
+  }
+
   100% {
     transform: translateY(-100vh) translateX(var(--heart-drift, 50px)) scale(1) rotate(var(--heart-spin, 45deg));
     opacity: 0;
@@ -598,8 +707,13 @@ img {
   line-height: 1;
 }
 
-.wishes-flower-top { margin-bottom: 16px; }
-.wishes-flower-bottom { margin-top: 24px; }
+.wishes-flower-top {
+  margin-bottom: 16px;
+}
+
+.wishes-flower-bottom {
+  margin-top: 24px;
+}
 
 .wishes-name {
   font-family: var(--font-script);
@@ -729,13 +843,29 @@ img {
   animation: musicWave 0.8s ease-in-out infinite alternate;
 }
 
-.music-waves span:nth-child(1) { height: 6px; animation-delay: 0s; }
-.music-waves span:nth-child(2) { height: 12px; animation-delay: 0.15s; }
-.music-waves span:nth-child(3) { height: 8px; animation-delay: 0.3s; }
+.music-waves span:nth-child(1) {
+  height: 6px;
+  animation-delay: 0s;
+}
+
+.music-waves span:nth-child(2) {
+  height: 12px;
+  animation-delay: 0.15s;
+}
+
+.music-waves span:nth-child(3) {
+  height: 8px;
+  animation-delay: 0.3s;
+}
 
 @keyframes musicWave {
-  0% { height: 4px; }
-  100% { height: 16px; }
+  0% {
+    height: 4px;
+  }
+
+  100% {
+    height: 16px;
+  }
 }
 
 .music-player.playing .music-btn {
@@ -802,14 +932,22 @@ img {
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 
-  .petal { display: none; }
-  .floating-heart { display: none; }
+  .petal {
+    display: none;
+  }
+
+  .floating-heart {
+    display: none;
+  }
 
   .reveal {
     opacity: 1;
