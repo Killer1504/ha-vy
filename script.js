@@ -19,16 +19,25 @@ function initLoadingScreen() {
   const loader = document.getElementById('loadingScreen');
   const minLoadTime = 2000;
   const startTime = Date.now();
+  let assetsReady = false;
 
   window.addEventListener('load', () => {
     const elapsed = Date.now() - startTime;
     const remaining = Math.max(0, minLoadTime - elapsed);
-
     setTimeout(() => {
-      loader.classList.add('hidden');
-      // Trigger hero sequence after loading screen fades
-      setTimeout(() => startHeroSequence(), 400);
+      assetsReady = true;
+      loader.classList.add('ready');
     }, remaining);
+  });
+
+  // Tap/click to enter — this user gesture enables autoplay
+  loader.addEventListener('click', () => {
+    if (!assetsReady) return;
+    loader.classList.add('hidden');
+    setTimeout(() => {
+      startHeroSequence();
+      autoPlayMusic();
+    }, 400);
   });
 }
 
@@ -140,6 +149,21 @@ function initScrollReveal() {
 /* ===========================
    MUSIC PLAYER
    =========================== */
+let musicPlaying = false;
+
+function autoPlayMusic() {
+  const player = document.getElementById('musicPlayer');
+  const audio = document.getElementById('bgMusic');
+  if (!audio) return;
+
+  audio.play().then(() => {
+    musicPlaying = true;
+    if (player) player.classList.add('playing');
+  }).catch(() => {
+    console.log('🎵 Autoplay blocked or no audio file found');
+  });
+}
+
 function initMusicPlayer() {
   const player = document.getElementById('musicPlayer');
   const btn = document.getElementById('musicToggle');
@@ -147,30 +171,23 @@ function initMusicPlayer() {
 
   if (!btn || !audio) return;
 
-  let isPlaying = false;
-
   btn.addEventListener('click', () => {
-    if (isPlaying) {
+    if (musicPlaying) {
       audio.pause();
       player.classList.remove('playing');
     } else {
-      audio.play().catch(() => {
-        // Audio play failed — likely no source or user gesture required
-        console.log('🎵 Thêm file nhạc vào assets/song.mp3 để nghe nhạc nền');
-      });
+      audio.play().catch(() => { });
       player.classList.add('playing');
     }
-    isPlaying = !isPlaying;
+    musicPlaying = !musicPlaying;
   });
 
   audio.addEventListener('ended', () => {
     player.classList.remove('playing');
-    isPlaying = false;
+    musicPlaying = false;
   });
 
-  audio.addEventListener('error', () => {
-    // Silently handle missing audio file
-  });
+  audio.addEventListener('error', () => { });
 }
 
 /* ===========================
